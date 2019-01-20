@@ -1,0 +1,17 @@
+{
+  "name": "crypto-stars",
+  "version": "0.0.1",
+  "description": "Frontend for CryptoStars Ethereum Dapp using truffle v5",
+  "scripts": {
+    "test": "truffle test",
+    "build": "npm install",
+    "dev": "webpack-dev-server"
+  },
+  "author": "Laura Weindorf. Adapted from starter code provided by Udacity (Rachna Ralhan), authored by Douglas von Kohorn",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "bignumber.js": "^8.0.2",
+    "openzeppelin-solidity": "^2.0.0"
+  }
+}

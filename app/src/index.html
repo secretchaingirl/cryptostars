@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CryptoStars Market</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+</head>
+<body>
+    <h1>CryptoStars Market</h1>
+    <h2>The place to claim, buy & sell, and lookup CryptoStars</h2>
+    <hr>
+
+    <br>
+    <h1>Claim a New CryptoStar</h1>
+    <br><label for="cryptoStarName">CryptoStar Name:</label><input type="text" id="cryptoStarName"></input>
+    <br><label for="cryptoStarId">CryptoStar ID:</label><input type="text" id="cryptoStarId"></input>
+    <br><br><button id="claimCryptoStar" onclick="App.claimCryptoStar()">Claim CryptoStar</button>
+    <br><br>
+    <br>
+
+    <span id="status"></span>
+
+    <br>
+    <h1>Find a CryptoStar</h1>
+    <br><label for="cryptoStarId">CryptoStar ID:</label><input type="text" id="cryptoStarId"></input>
+    <br><br><button id="findCryptoStar" onclick="App.findCryptoStar()">Find CryptoStar</button>
+    <br><br>
+    <br>
+
+</body>
+</html>
