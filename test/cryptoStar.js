@@ -1,4 +1,4 @@
-const CryptoStar = artifacts.require('CryptoStarBase')
+const CryptoStar = artifacts.require('CryptoStar')
 const BigNumber = require('bignumber.js')
 
 contract('CryptoStar', (accs) => {
@@ -12,7 +12,7 @@ contract('CryptoStar', (accs) => {
   it('can Claim a CryptoStar', async() => {
     let tokenId = 1;
     await instance.claimStar('star #1', tokenId, {from: accounts[0]})
-    assert.equal(await instance.tokenIdToStarInfo.call(tokenId), 'star #1')
+    assert.equal((await instance.tokenIdToStarInfo.call(tokenId)).name, 'star #1')
   });
 
   it('can Put a CryptoStar Up For Sale', async() => {
@@ -61,10 +61,28 @@ contract('CryptoStar', (accs) => {
     assert.equal(balanceOfUser2BeforeTransaction.minus(balanceAfterUser2BuysStar), starPrice);
   });
 
-  // Write Tests for:
+  // 1) The token name and token symbol are added properly.
 
-// 1) The token name and token symbol are added properly.
-// 2) 2 users can exchange their crypto stars.
-// 3) CryptoStar tokens can be transferred from one address to another.
+  it('can get CryptoStar token name', async () => {
+    assert.equal('CryptoStar', await instance.name.call());
+  });
+
+  it('can get CryptoStar token symbol', async () => {
+    assert.equal('CST', await instance.symbol.call());
+  });
+
+  // 2) The token can be looked up.
+
+  it('can lookup a CryptoStar using the tokenId', async() => {
+    let tokenId = 6;
+    await instance.claimStar('star #6', tokenId, {from: accounts[0]})
+    let starName = await instance.lookUptokenIdToStarInfo(tokenId);
+    assert.equal(starName, 'star #6')
+  });
+
+  // 3) 2 users can exchange their crypto stars.
+
+  // 4) CryptoStar tokens can be transferred from one address to another.
+
 
 });

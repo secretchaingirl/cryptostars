@@ -1,5 +1,5 @@
-const CryptoStarBase = artifacts.require("CryptoStarBase");
+const CryptoStar = artifacts.require("CryptoStar");
 
 module.exports = function(deployer) {
-  deployer.deploy(CryptoStarBase);
+  deployer.deploy(CryptoStar);
 };

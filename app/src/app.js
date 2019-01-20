@@ -6,7 +6,7 @@ import { default as Web3 } from 'web3'
 import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
-import CryptoStarArtifact from '../../build/contracts/CryptoStarBase.json'
+import CryptoStarArtifact from '../../build/contracts/CryptoStar.json'
 
 // CryptoStar is our usable abstraction, which we'll use through the code below.
 const CryptoStar = contract(CryptoStarArtifact)
@@ -17,17 +17,33 @@ const CryptoStar = contract(CryptoStarArtifact)
 let accounts
 let account
 
-const claimCryptoStar = async () => {
-  const instance = await CryptoStar.deployed();
-  const name = document.getElementById("cryptoStarName").value;
-  const id = document.getElementById("cryptoStarId").value;
-  await instance.claimStar(name, id, {from: account});
-  App.setStatus("CryptoStar claimed by: " + account + ".");
+// Get token name and symbol
+const getTokenInfo = async () => {
+    const instance = await CryptoStar.deployed();
+    const tokenName = await instance.name.call();
+    const tokenSymbol = await instance.symbol.call();
+
+    App.setTokenInfo(tokenName, tokenSymbol);
 }
 
-// Add a function lookUp to Lookup a star by ID using tokenIdToCryptoStarInfo()
+// Claim a new CryptoStar
+const claimCryptoStar = async () => {
+    const instance = await CryptoStar.deployed();
+    const name = document.getElementById("cryptoStarName").value;
+    const id = document.getElementById("cryptoStarId").value;
+    await instance.claimStar(name, id, {from: account});
 
-//
+    App.setStatus("CryptoStar claimed by: " + account + ".");
+}
+
+// Lookup a CryptoStar by ID
+const findCryptoStar = async () => {
+    const instance = await CryptoStar.deployed();
+    const id = document.getElementById("cryptoStarIdForLookup").value;
+    const name = await instance.lookUptokenIdToStarInfo(id);
+
+    App.setStatus("CryptoStar name: " + name + ".");
+}
 
 const App = {
   start: function () {
@@ -51,17 +67,30 @@ const App = {
       accounts = accs
       account = accounts[0]
 
+      self.getTokenInfo();
     })
   },
 
+  getTokenInfo: function () {
+    getTokenInfo();
+  },
+
+  setTokenInfo: function (tokenName, tokenSymbol) {
+    document.getElementById('tokenName').innerHTML = tokenName;
+    document.getElementById('tokenSymbol').innerHTML = tokenSymbol;
+  },
+
   setStatus: function (message) {
-    const status = document.getElementById('status')
-    status.innerHTML = message
+    document.getElementById('status').innerHTML = message;
   },
 
   claimCryptoStar: function () {
     claimCryptoStar();
   },
+
+  findCryptoStar: function () {
+    findCryptoStar();
+  }
 
 }
 

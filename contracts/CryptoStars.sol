@@ -2,10 +2,14 @@ pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 
-contract CryptoStarBase is ERC721 {
+contract CryptoStar is ERC721 {
+
+    // https://ethereum.meta.stackexchange.com/questions/443/blog-simple-storage-patterns-in-solidity
+    // Using struct mapping with internal bool indicating Star is valid
 
     struct Star {
         string name;
+        bool isStar;
     }
 
     // Name and symbol of CryptoStar token
@@ -16,20 +20,23 @@ contract CryptoStarBase is ERC721 {
     mapping(uint256 => Star) public tokenIdToStarInfo;
     mapping(uint256 => uint256) public starsForSale;
 
-    function claimStar(string _name, uint256 _tokenId) public {
-        Star memory newStar = Star(_name);
+    function isStar(uint256 _tokenId) public view returns(bool isIndeed) {
+        return tokenIdToStarInfo[_tokenId].isStar;
+    }
 
-        tokenIdToStarInfo[_tokenId] = newStar;
+    function claimStar(string _name, uint256 _tokenId) public {
+        require(!isStar(_tokenId), "tokenId already exists");
+
+        tokenIdToStarInfo[_tokenId].name = _name;
+        tokenIdToStarInfo[_tokenId].isStar = true;
 
         _mint(msg.sender, _tokenId);
     }
 
-    function lookUptokenIdToStarInfo(uint256 _tokenId) public {
-        require(tokenIdToStarInfo[_tokenId] > 0, "tokenId not valid");
+    function lookUptokenIdToStarInfo(uint256 _tokenId) public view returns (string) {
+        require(isStar(_tokenId), "tokenId not valid");
 
-        Star memory star = tokenIdToStarInfo[_tokenId];
-
-        return star.name;
+        return tokenIdToStarInfo[_tokenId].name;
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
@@ -39,11 +46,11 @@ contract CryptoStarBase is ERC721 {
     }
 
     function buyStar(uint256 _tokenId) public payable {
-        require(starsForSale[_tokenId] > 0, "tokenId not valid");
+        require(starsForSale[_tokenId] > 0, "not for sale");
 
         uint256 starCost = starsForSale[_tokenId];
         address starOwner = ownerOf(_tokenId);
-        require(msg.value >= starCost, "not enough Wei");
+        require(msg.value >= starCost, "not enough Wei to buy Star");
 
         _removeTokenFrom(starOwner, _tokenId);
         _addTokenTo(msg.sender, _tokenId);
