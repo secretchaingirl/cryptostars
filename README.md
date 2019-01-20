@@ -33,7 +33,7 @@ This repository uses:
 
  1. Clone the repository
  ```
- $ git clone <repository url>
+ $ git clone [repo]
  ```
 
  2. Install NPM packages at top-level needed for truffle contracts and unit tests
