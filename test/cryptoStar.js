@@ -76,13 +76,65 @@ contract('CryptoStar', (accs) => {
   it('can lookup a CryptoStar using the tokenId', async() => {
     let tokenId = 6;
     await instance.claimStar('star #6', tokenId, {from: accounts[0]})
-    let starName = await instance.lookUptokenIdToStarInfo(tokenId);
-    assert.equal(starName, 'star #6')
+    var v = await instance.lookUptokenIdToStarInfo(tokenId);
+    assert.equal(v[0].toString(), 'star #6');
+    assert.equal(v[1].toString(), accounts[0]);
   });
 
   // 3) 2 users can exchange their crypto stars.
 
+  it('can exchange two CryptoStars', async() => {
+    let tokenFrom = 7;
+    await instance.claimStar('star #7', tokenFrom, {from: accounts[0]})
+    let tokenTo = 8;
+    await instance.claimStar('star #8', tokenTo, {from: accounts[1]})
+    await instance.exchangeStars(tokenFrom, tokenTo, {from: accounts[0]});
+    assert.equal(await instance.ownerOf.call(tokenFrom), accounts[1]);
+    assert.equal(await instance.ownerOf.call(tokenTo), accounts[0]);
+  });
+
   // 4) CryptoStar tokens can be transferred from one address to another.
 
+  it('can transfer a CryptoStar to another account', async() => {
+    let tokenId = 9;
+    await instance.claimStar('star #9', tokenId, {from: accounts[0]})
+    await instance.transferStar(accounts[1], tokenId), {from: accounts[0]};
+    assert.equal(await instance.ownerOf.call(tokenId), accounts[1])
+  });
+
+  // 5) Only a CryptoStar owner can transfer ownership
+
+  it('can\'t transfer a CryptoStar when you\'re not the owner', async() => {
+    let tokenId = 9;
+    let tokenOwner = await instance.ownerOf.call(tokenId);
+    try {
+        await instance.transferStar(accounts[2], tokenId);
+    } catch(err) {
+        //console.log(err.message);
+    }
+    assert.equal(await instance.ownerOf.call(tokenId), tokenOwner);
+  });
+
+  // Destroy contract
+
+  it('only the Contract owner can destroy it', async () => {
+      let expired = true;
+      try {
+        await instance.expire({from: accounts[1]});
+      } catch(err) {
+          expired = false;
+      }
+      assert.equal(expired, false);
+  })
+
+  it('owner can destroy the CryptoStars contract', async () => {
+      let expired = true;
+      try {
+          await instance.expire({from: accounts[0]});
+      } catch(err) {
+          expired = false;
+      }
+      assert.equal(expired, true);
+  })
 
 });

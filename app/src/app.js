@@ -33,41 +33,66 @@ const claimCryptoStar = async () => {
     const id = document.getElementById("cryptoStarId").value;
     await instance.claimStar(name, id, {from: account});
 
-    App.setStatus("CryptoStar claimed by: " + account + ".");
+    App.setStatus('claimStatusId', "CryptoStar claimed by: " + account + ".");
 }
 
 // Lookup a CryptoStar by ID
 const findCryptoStar = async () => {
     const instance = await CryptoStar.deployed();
     const id = document.getElementById("cryptoStarIdForLookup").value;
-    const name = await instance.lookUptokenIdToStarInfo(id);
+    const v = await instance.lookUptokenIdToStarInfo(id);
+    const name = v[0].toString();
+    const owner = v[1].toString();
 
-    App.setStatus("CryptoStar name: " + name + ".");
+    App.setStatus('findStatusId', "CryptoStar name: " + name + ". Owner: " + owner);
+}
+
+// Exchange CryptoStars
+const exchangeCryptoStars = async () => {
+    const instance = await CryptoStar.deployed();
+    const id1 = document.getElementById("cryptoStarId1").value;
+    const id2 = document.getElementById("cryptoStarId2").value;
+
+    await instance.exchangeStars(id1, id2, {from: account});
+
+    App.setStatus('exchangeStatusId', "CryptoStars exchanged OK!");
+}
+
+// Transfer CryptoStar ownership
+const transferCryptoStar = async () => {
+    const instance = await CryptoStar.deployed();
+    const id = document.getElementById("cryptoStarIdForTransfer").value;
+    const accountTo = document.getElementById("cryptoOwnerForTransfer").value;
+
+    await instance.transferStar(accountTo, id, {from: account});
+
+    App.setStatus('transferStatusId', "CryptoStar transferred OK!");
 }
 
 const App = {
   start: function () {
-    const self = this
+
+    const self = this;
 
     // Bootstrap the CryptoStar abstraction for Use.
     CryptoStar.setProvider(web3.currentProvider)
 
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function (err, accs) {
-      if (err != null) {
-        alert('There was an error fetching your accounts.')
-        return
-      }
+        if (err != null) {
+            alert('There was an error fetching your accounts.')
+            return
+        }
 
-      if (accs.length === 0) {
-        alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.")
-        return
-      }
+        if (accs.length === 0) {
+            alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.")
+            return
+        }
 
-      accounts = accs
-      account = accounts[0]
+        accounts = accs
+        account = accounts[0]
 
-      self.getTokenInfo();
+        self.getTokenInfo();
     })
   },
 
@@ -80,8 +105,8 @@ const App = {
     document.getElementById('tokenSymbol').innerHTML = tokenSymbol;
   },
 
-  setStatus: function (message) {
-    document.getElementById('status').innerHTML = message;
+  setStatus: function (id, message) {
+    document.getElementById(id).innerHTML = message;
   },
 
   claimCryptoStar: function () {
@@ -90,6 +115,14 @@ const App = {
 
   findCryptoStar: function () {
     findCryptoStar();
+  },
+
+  exchangeCryptoStars: function () {
+      exchangeCryptoStars();
+  },
+
+  transferCryptoStar: function () {
+      transferCryptoStar();
   }
 
 }

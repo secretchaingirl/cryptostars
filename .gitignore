@@ -1,5 +1,8 @@
 node_modules
 build
 
+.infuraKey
+.mnemonic
+
 package-lock*
 app/package-lock*

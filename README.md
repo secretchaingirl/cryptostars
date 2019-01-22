@@ -3,13 +3,15 @@
 
 CryptoStars is an Ethereum Dapp implemented using Truffle v5
 
+> Contract Address: 0xe368113C9f99705a6a5B4bFE2d93d0d821065A99
+
 > ERC-721 Token Name
 > 
-	> 		CryptoStar
+	CryptoStar
 > 
 > ERC-721 Token Symbol
 > 
-	> 		CST
+	CST
 > 
 
 Things you can do with the **CryptStars Dapp**:

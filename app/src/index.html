@@ -14,21 +14,35 @@
     <br>
     <hr>
 
-    <br>
     <h1>Claim a New CryptoStar</h1>
     <br><label for="cryptoStarName">CryptoStar Name:</label><input type="text" id="cryptoStarName"></input>
     <br><label for="cryptoStarId">CryptoStar ID:</label><input type="text" id="cryptoStarId"></input>
     <br><br><button id="claimCryptoStar" onclick="App.claimCryptoStar()">Claim CryptoStar</button>
     <br><br>
+    <span id="claimStatusId"></span>
     <br>
 
-    <span id="status"></span>
-
-    <br>
     <h1>Find a CryptoStar</h1>
     <br><label for="cryptoStarIdForLookup">CryptoStar ID:</label><input type="text" id="cryptoStarIdForLookup"></input>
     <br><br><button id="findCryptoStar" onclick="App.findCryptoStar()">Find CryptoStar</button>
     <br><br>
+    <span id="findStatusId"></span>
+    <br>
+
+    <h1>Exchange CryptoStars</h1>
+    <br><label for="cryptoStarId1">1st CryptoStar ID:</label><input type="text" id="cryptoStarId1"></input>
+    <br><label for="cryptoStarId2">1st CryptoStar ID:</label><input type="text" id="cryptoStarId2"></input>
+    <br><br><button id="exchangeCryptoStars" onclick="App.exchangeCryptoStars()">Exchange CryptoStars</button>
+    <br><br>
+    <span id="exchangeStatusId"></span>
+    <br>
+
+    <h1>Transfer CryptoStar</h1>
+    <br><label for="cryptoStarIdForTransfer">CryptoStar ID to transfer:</label><input type="text" id="cryptoStarIdForTransfer"></input>
+    <br><label for="cryptoOwnerForTransfer">To Account:</label><input type="text" id="cryptoOwnerForTransfer"></input>
+    <br><br><button id="transferCryptoStar" onclick="App.transferCryptoStar()">Transfer CryptoStar</button>
+    <br><br>
+    <span id="transferStatusId"></span>
     <br>
 
 </body>
