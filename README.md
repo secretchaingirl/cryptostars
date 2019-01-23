@@ -22,7 +22,7 @@ Things you can do with the **CryptStars Dapp**:
  - transfer a star
 
 ## Getting Started
-`npm install -g truffle`
+`npm install -g truffle@5.0.1`
 
 This repository uses:
 
