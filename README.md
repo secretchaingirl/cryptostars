@@ -72,11 +72,11 @@ test
  $ npm run dev
  ```
  
- 5. Setup your MetaMask by adding a *Custom RPC* pointing to the Truffle development network: *http://localhost:9545*
+ 5. Setup your MetaMask by adding a *Custom RPC* pointing to the Truffle development network: http://localhost:9545
  
  6. Add a few accounts to MetaMask using the private key import feature
  
- 7. Open browser and go to *http://localhost:8080*
+ 7. Open browser and go to http://localhost:8080
  
  8. You're all set to try claiming, finding, exchanging, and transferring  CryptoStars!
 
@@ -87,11 +87,11 @@ test
  Or use the current `truffle-config.js` setup and create the `.mnemonic` and `.infuraKey` files under the main repo location:
 
     a. Add your Metamask seed words to `.mnemonic`
-    b. Create an *Infura.io* project and add the project ID to `.mnemonic`
+    b. Create an Infura.io project and add the project ID to `.infuraKey`
 
  2. Setup Metamask to point to the Rinkeby network
  
- 3. Add the CST custom token to your Rinkeby account(s)
+ 3. Add the *CST* custom token to your Rinkeby account(s)
 
  4. Open a terminal window and run the Webpack development server
  ```
@@ -108,7 +108,6 @@ This repo was initially created using `truffle unbox webpack` which is a marriag
 The repo has been adapted from the Udacity *decentralized star notary* boiler plate starter code:  [https://github.com/udacity/boilerPlateDAPPproject](https://github.com/udacity/boilerPlateDAPPproject "https://github.com/udacity/boilerPlateDAPPproject")
 
 ## License
-MIT
-
+[MIT](https://github.com/lauraweindorf/cryptostars/blob/master/LICENSE)
 
 > Written with [StackEdit](https://stackedit.io/).
