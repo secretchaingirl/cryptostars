@@ -30,7 +30,7 @@ This repository uses:
  - Solidity (solc) v0.4.24
  - OpenZeppelin-Solidity v2.0.0
 
-### Installation
+### Installation and Getting Started
 
  1. Clone the repository
  ```
@@ -42,56 +42,56 @@ This repository uses:
 $ npm run build
 ```
 
- 3. Install Webpack and other NPM packages needed for Dapp front-end
- 
+ 3. Create the empty mnemonic and infuraKey files (to run the Dapp against the Rinkeby network later)
  ```
- $ cd app
- $ npm run build
+ $ touch .mnemonic
+ $ touch .infuraKey
  ```
 
-### Running the CryptoStars Dapp (locally)
-
- 1. Run the truffle development environment
+ 4. Run the truffle development environment
  ```
  $ truffle develop
  ```
  
- 2. Compile the contracts and migrate from within `truffle develop`
+ 5. Compile the contracts and migrate from within `truffle develop`
  ```
 compile
 migrate
  ```
  
- 3. Run the contract unit tests *(optional)* from within `truffle develop`
+ 6. Run the contract unit tests *(optional)* from within `truffle develop`
  ```
 test
 ```
- 4. In another terminal run the Webpack development server (**not from** `truffle develop`)
+
+ 7. In another terminal window (**not from** `truffle develop`) install Webpack and other packages needed for the Dapp front-end
+ 
  ```
  $ cd app
+ $ npm install
+ $ npm run build
  $ npm run dev
  ```
+
+### Running the CryptoStars Dapp (locally)
  
- 5. Setup your MetaMask by adding a *Custom RPC* pointing to the Truffle development network: http://localhost:9545
+ 1. Setup your MetaMask by adding a *Custom RPC* pointing to the Truffle development network: http://localhost:9545
  
- 6. Add a few accounts to MetaMask using the private key import feature
+ 2. Add a few accounts to MetaMask using the private key import feature
  
- 7. Open browser and go to http://localhost:8080
+ 3. Open browser and go to http://localhost:8080
  
- 8. You're all set to try claiming, finding, exchanging, and transferring  CryptoStars!
+ 4. You're all set to try claiming, finding, exchanging, and transferring  CryptoStars!
 
  ### Running the CryptoStars Dapp (on the Rinkeby Test Network)
 
- 1. Modify the `rinkeby` netwoprk configuration in `truffle-config.js` and set the `HDWalletProvider` values
-
- Or use the current `truffle-config.js` setup and create the `.mnemonic` and `.infuraKey` files under the main repo location:
-
-    a. Add your Metamask seed words to `.mnemonic`
-    b. Create an Infura.io project and add the project ID to `.infuraKey`
+ 1. Modify the *mnemonic* and *infura.io* config files
+    a. Add your Metamask seed words to the `.mnemonic` file
+    b. Create an *Infura.io* project and add the *Project ID* to `.infuraKey`
 
  2. Setup Metamask to point to the Rinkeby network
  
- 3. Add the *CST* custom token to your Rinkeby account(s)
+ 3. Add the *CST custom token* to your Rinkeby account(s)
 
  4. Open a terminal window and run the Webpack development server
  ```
