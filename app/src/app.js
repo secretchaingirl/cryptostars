@@ -1,5 +1,5 @@
 // Import the page's CSS. Webpack will know what to do with it.
-//import '../styles/app.css'
+import './styles/app.css'
 
 // Import libraries we need.
 import { default as Web3 } from 'web3'
@@ -31,20 +31,34 @@ const claimCryptoStar = async () => {
     const instance = await CryptoStar.deployed();
     const name = document.getElementById("cryptoStarName").value;
     const id = document.getElementById("cryptoStarId").value;
-    await instance.claimStar(name, id, {from: account});
 
-    App.setStatus('claimStatusId', "CryptoStar claimed by: " + account + ".");
+    App.clearStatus('claimStatusId');
+
+    try {
+        let star = await instance.lookUptokenIdToStarInfo(id);
+        App.setStatus('claimStatusId', 'Sorry, that CryptoStar has already been claimed.');
+    } catch (err) {
+        // Star Id hasn't already been claimed, so claim it
+        await instance.claimStar(name, id, {from: account});
+        App.setStatus('claimStatusId', "CryptoStar claimed by: " + account + ".");
+    }
 }
 
 // Lookup a CryptoStar by ID
 const findCryptoStar = async () => {
     const instance = await CryptoStar.deployed();
     const id = document.getElementById("cryptoStarIdForLookup").value;
-    const v = await instance.lookUptokenIdToStarInfo(id);
-    const name = v[0].toString();
-    const owner = v[1].toString();
 
-    App.setStatus('findStatusId', "CryptoStar name: " + name + ". Owner: " + owner);
+    App.clearStatus('findStatusId');
+
+    try {
+        const v = await instance.lookUptokenIdToStarInfo(id);
+        const name = v[0].toString();
+        const owner = v[1].toString();
+        App.setStatus('findStatusId', "CryptoStar name: " + name + ". Owner: " + owner);
+    } catch(err) {
+        App.setStatus('findStatusId', 'Unable to find CryptoStar: ' + id);
+    }
 }
 
 // Exchange CryptoStars
@@ -52,6 +66,8 @@ const exchangeCryptoStars = async () => {
     const instance = await CryptoStar.deployed();
     const id1 = document.getElementById("cryptoStarId1").value;
     const id2 = document.getElementById("cryptoStarId2").value;
+
+    App.clearStatus('exchangeStatusId');
 
     await instance.exchangeStars(id1, id2, {from: account});
 
@@ -63,6 +79,8 @@ const transferCryptoStar = async () => {
     const instance = await CryptoStar.deployed();
     const id = document.getElementById("cryptoStarIdForTransfer").value;
     const accountTo = document.getElementById("cryptoOwnerForTransfer").value;
+
+    App.clearStatus('transferStatusId');
 
     await instance.transferStar(accountTo, id, {from: account});
 
@@ -103,6 +121,10 @@ const App = {
   setTokenInfo: function (tokenName, tokenSymbol) {
     document.getElementById('tokenName').innerHTML = tokenName;
     document.getElementById('tokenSymbol').innerHTML = tokenSymbol;
+  },
+
+  clearStatus: function(id) {
+    document.getElementById(id).innerHTML = '';
   },
 
   setStatus: function (id, message) {

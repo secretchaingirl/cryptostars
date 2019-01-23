@@ -2,47 +2,50 @@
 <html>
 <head>
   <title>CryptoStars Market</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <script src="./app.js"></script>
 </head>
 <body>
     <h1>CryptoStars Market</h1>
-    <h2>The place to claim, buy & sell, and lookup CryptoStars</h2>
+    <h2>The place to claim, find, exchange and transfer CryptoStars</h2>
     <br>
     <h3>Token Name: <span id="tokenName"></span></h3>
     <h3>Token Symbol: <span id="tokenSymbol"></span></h3>
     <br>
     <hr>
 
-    <h1>Claim a New CryptoStar</h1>
-    <br><label for="cryptoStarName">CryptoStar Name:</label><input type="text" id="cryptoStarName"></input>
-    <br><label for="cryptoStarId">CryptoStar ID:</label><input type="text" id="cryptoStarId"></input>
-    <br><br><button id="claimCryptoStar" onclick="App.claimCryptoStar()">Claim CryptoStar</button>
+    <div class="section">Claim a New CryptoStar</div>
+    <br><label for="cryptoStarName">Name:</label><input type="text" id="cryptoStarName"></input>
+    <br><label for="cryptoStarId">Star Id:</label><input type="text" id="cryptoStarId"></input>
+    <br><br><button id="claimCryptoStar" onclick="App.claimCryptoStar()">Claim</button>
     <br><br>
-    <span id="claimStatusId"></span>
+    <span id="claimStatusId" class="statusbar"></span>
+    <br>
     <br>
 
-    <h1>Find a CryptoStar</h1>
-    <br><label for="cryptoStarIdForLookup">CryptoStar ID:</label><input type="text" id="cryptoStarIdForLookup"></input>
-    <br><br><button id="findCryptoStar" onclick="App.findCryptoStar()">Find CryptoStar</button>
+    <div class="section">Find a CryptoStar</div>
+    <br><label for="cryptoStarIdForLookup">Star Id:</label><input type="text" id="cryptoStarIdForLookup"></input>
+    <br><br><button id="findCryptoStar" onclick="App.findCryptoStar()">Find</button>
     <br><br>
-    <span id="findStatusId"></span>
+    <span id="findStatusId" class="statusbar"></span>
+    <br>
     <br>
 
-    <h1>Exchange CryptoStars</h1>
-    <br><label for="cryptoStarId1">1st CryptoStar ID:</label><input type="text" id="cryptoStarId1"></input>
-    <br><label for="cryptoStarId2">1st CryptoStar ID:</label><input type="text" id="cryptoStarId2"></input>
-    <br><br><button id="exchangeCryptoStars" onclick="App.exchangeCryptoStars()">Exchange CryptoStars</button>
+    <div class="section">Exchange CryptoStars</div>
+    <br><label for="cryptoStarId1">Star Id #1:</label><input type="text" id="cryptoStarId1"></input>
+    <br><label for="cryptoStarId2">Star Id #2:</label><input type="text" id="cryptoStarId2"></input>
+    <br><br><button id="exchangeCryptoStars" onclick="App.exchangeCryptoStars()">Exchange</button>
     <br><br>
-    <span id="exchangeStatusId"></span>
+    <span id="exchangeStatusId" class="statusbar"></span>
+    <br>
     <br>
 
-    <h1>Transfer CryptoStar</h1>
-    <br><label for="cryptoStarIdForTransfer">CryptoStar ID to transfer:</label><input type="text" id="cryptoStarIdForTransfer"></input>
-    <br><label for="cryptoOwnerForTransfer">To Account:</label><input type="text" id="cryptoOwnerForTransfer"></input>
-    <br><br><button id="transferCryptoStar" onclick="App.transferCryptoStar()">Transfer CryptoStar</button>
+    <div class="section">Transfer a CryptoStar</div>
+    <br><label for="cryptoStarIdForTransfer">Star Id to transfer:</label><input type="text" id="cryptoStarIdForTransfer"></input>
+    <br><label for="cryptoOwnerForTransfer">To (account):</label><input type="text" id="cryptoOwnerForTransfer"></input>
+    <br><br><button id="transferCryptoStar" onclick="App.transferCryptoStar()">Transfer</button>
     <br><br>
-    <span id="transferStatusId"></span>
+    <span id="transferStatusId" class="statusbar"></span>
+    <br>
     <br>
 
 </body>
